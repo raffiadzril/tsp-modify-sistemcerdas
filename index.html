@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveling Salesman Problem - Interactive Solver</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛣️ Traveling Salesman Problem Solver</h1>
+            <p>Masukkan data node dan cost untuk menyelesaikan TSP menggunakan algoritma Greedy</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="step-card">
+                    <h2>📍 Step 1: Jumlah Node</h2>
+                    <div class="input-group">
+                        <label for="nodeCount">Masukkan jumlah node:</label>
+                        <input type="number" id="nodeCount" min="2" max="10" value="3" placeholder="Contoh: 4">
+                        <button onclick="generateNodeInputs()" class="btn btn-primary">Generate Node Inputs</button>
+                    </div>
+                </div>
+
+                <div id="nodeNamesSection" class="step-card" style="display: none;">
+                    <h2>🏷️ Step 2: Nama Node</h2>
+                    <div id="nodeNamesContainer"></div>
+                    <button onclick="generateCostMatrix()" class="btn btn-secondary">Generate Cost Matrix</button>
+                </div>
+
+                <div id="costMatrixSection" class="step-card" style="display: none;">
+                    <h2>💰 Step 3: Cost Matrix</h2>
+                    <p class="help-text">Masukkan cost perjalanan dari setiap node ke node lainnya:</p>
+                    <div class="help-text" style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <strong>💡 Tips:</strong>
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>Masukkan angka untuk cost perjalanan</li>
+                            <li>Ketik <strong>"inf"</strong> atau <strong>"∞"</strong> untuk node yang tidak terhubung langsung</li>
+                            <li>Kosongkan cell untuk menggunakan infinite cost</li>
+                            <li>Graph non-connected akan tetap dapat diselesaikan</li>
+                        </ul>
+                    </div>
+                    <div id="costMatrixContainer"></div>
+                    
+                    <div class="start-node-selection">
+                        <label for="startNode">Pilih node awal:</label>
+                        <select id="startNode"></select>
+                    </div>
+                    
+                    <button onclick="solveTSP()" class="btn btn-success">🚀 Solve TSP</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="results-section" style="display: none;">
+                <div class="result-card">
+                    <h2>📋 Hasil TSP</h2>
+                    <div id="routeResult" class="route-display"></div>
+                    <div id="costResult" class="cost-display"></div>
+                    <div id="stepByStep" class="steps-display"></div>
+                </div>
+
+                <div class="visualization-card">
+                    <h3>🗺️ Visualisasi Rute</h3>
+                    <div id="routeVisualization" class="route-viz"></div>
+                </div>
+
+                <button onclick="resetAll()" class="btn btn-danger">🔄 Reset & Start Over</button>
+            </div>
+        </div>
+
+        <!-- Example Section -->
+        <div class="example-section">
+            <h3>💡 Contoh Penggunaan</h3>
+            <div class="example-grid">
+                <div class="example-card">
+                    <h4>Contoh 1: 3 Kota</h4>
+                    <p><strong>Node:</strong> Jakarta, Bandung, Surabaya</p>
+                    <p><strong>Cost Matrix:</strong></p>
+                    <ul>
+                        <li>Jakarta → Bandung: 150</li>
+                        <li>Jakarta → Surabaya: 800</li>
+                        <li>Bandung → Surabaya: 700</li>
+                    </ul>
+                    <button onclick="loadExample1()" class="btn btn-outline">Load Example</button>
+                </div>
+                
+                <div class="example-card">
+                    <h4>Contoh 2: 4 Gudang</h4>
+                    <p><strong>Node:</strong> A, B, C, D</p>
+                    <p><strong>Cost:</strong> Matrix 4x4 dengan jarak random</p>
+                    <button onclick="loadExample2()" class="btn btn-outline">Load Example</button>
+                </div>
+                
+                <div class="example-card">
+                    <h4>Contoh 3: Graph Non-Connected</h4>
+                    <p><strong>Node:</strong> P, Q, R, S</p>
+                    <p><strong>Fitur:</strong> Beberapa node tidak terhubung langsung (infinity cost)</p>
+                    <button onclick="loadExample3()" class="btn btn-outline">Load Example</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 TSP Interactive Solver - Sistem Cerdas</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
